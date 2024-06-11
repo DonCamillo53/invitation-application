@@ -1,0 +1,107 @@
+.add_contact_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  width: 500px;
+  background: transparent;
+  border-right: 1px solid #bbbbbb;
+}
+.contact_group {
+  display: flex;
+  flex-direction: column;
+  top: 100px;
+  position: absolute;
+}
+.add_contact_page h2 {
+  position: absolute;
+  top: 50px;
+  font-size: 25px;
+}
+.add_contact_page h3 {
+  font-size: 14px;
+  color: #898989;
+  margin-bottom: 30px;
+}
+.form_group {
+  position: relative;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.add_contact_page label {
+  font-size: 14px;
+  position: absolute;
+  top: -10px;
+  margin-left: 10px;
+  background-color: white;
+  padding: 0 5px;
+}
+.add_contact_page form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.add_contact_page form button {
+  font-size: 14px;
+  font-weight: bold;
+  width: 206px;
+  height: 46px;
+  border: 1px solid #05164d;
+  border-radius: 23px;
+  background-color: white;
+}
+.add_contact_page input {
+  height: 45px;
+  width: 385px;
+  border: solid 1px #bbbbbb;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.drag_and_drop {
+  background-color: #edeff7;
+  width: 385px;
+  height: 100px;
+  font-size: 14px;
+  text-align: center;
+  border: dashed 1px gray;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.save_button {
+  font-size: 14px;
+  font-weight: bold;
+  width: 206px;
+  height: 46px;
+  border: 1px solid #05164d;
+  border-radius: 23px;
+  color: white;
+  background-color: #05164d;
+  align-self: center;
+}
+
+.add_contact_page ul {
+  width: 385px;
+  height: 150px;
+  overflow: scroll;
+  margin-bottom: 30px;
+}
+.add_contact_page li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.add_contact_page p {
+  font-size: 14px;
+}

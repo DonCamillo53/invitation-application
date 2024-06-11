@@ -1,0 +1,15 @@
+.contact_table {
+  text-align: left;
+  width: 100%;
+}
+
+.contact_table tr {
+  height: 74px;
+  background-color: white;
+  border-radius: 30px;
+}
+
+.contact_table td {
+  background-color: transparent;
+  border: none;
+}
