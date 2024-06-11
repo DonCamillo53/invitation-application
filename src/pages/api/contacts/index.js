@@ -9,9 +9,9 @@
 //   return NextResponse.json({ message: "Contact Created" }, { status: 201 });
 // }
 
-import Contacts from "../../../db/models/Contacts.js";
+import Contacts from "../../../../db/models/Contacts.js";
 
-import dbConnect from "../../../db/dbConnect.js";
+import dbConnect from "../../../../db/dbConnect.js";
 
 export default async function handler(request, response) {
   await dbConnect();

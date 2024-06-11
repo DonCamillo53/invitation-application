@@ -1,12 +1,9 @@
-import HTMLtemplate from "./emails/HTMLtemplate";
+import HTMLtemplate from "./Emails/HTMLtemplate";
 
 export function HTMLeditor() {
   return (
     <div>
-      <div>
-        <HTMLtemplate />
-      </div>
-      <div></div>
+      <HTMLtemplate />
     </div>
   );
 }

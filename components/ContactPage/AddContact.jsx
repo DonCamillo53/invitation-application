@@ -3,7 +3,7 @@ import { useState } from "react";
 import { parse } from "papaparse";
 import styles from "./AddContact.module.css";
 
-export default function AddContactPage() {
+export default function AddContactPage({ handleSavingContact }) {
   const [contacts, setContacts] = useState([]);
 
   function handleManualSubmit(event) {
@@ -11,9 +11,8 @@ export default function AddContactPage() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     setContacts((existing) => [...existing, data]);
+    event.target.reset();
   }
-
-  function handleSaveContacts() {}
 
   return (
     <div className={styles.add_contact_page}>
@@ -47,7 +46,6 @@ export default function AddContactPage() {
                 const text = await file.text();
                 const result = await parse(text, { header: true });
                 setContacts((existing) => [...existing, ...result.data]);
-                console.log(result.data);
               });
           }}
         >
@@ -66,7 +64,10 @@ export default function AddContactPage() {
             </li>
           ))}
         </ul>
-        <button className={styles.save_button}>
+        <button
+          className={styles.save_button}
+          onClick={() => handleSavingContact(contacts).then(setContacts([]))}
+        >
           Save {contacts.length} {contacts.length > 1 ? "Contacts" : "Contact"}
         </button>
       </div>
