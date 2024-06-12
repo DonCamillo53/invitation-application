@@ -31,7 +31,9 @@ export default function AddContactPage({ handleSavingContact }) {
             <label htmlFor="email">E-Mail</label>
             <input name="email" type="email" />
           </div>
-          <button type="submit">Add Contact</button>
+          <button className="secondary_button" type="submit">
+            Add Contact
+          </button>
         </form>
         <div
           className={styles.drag_and_drop}
@@ -65,7 +67,7 @@ export default function AddContactPage({ handleSavingContact }) {
           ))}
         </ul>
         <button
-          className={styles.save_button}
+          className="primary_button"
           onClick={() => handleSavingContact(contacts).then(setContacts([]))}
         >
           Save {contacts.length} {contacts.length > 1 ? "Contacts" : "Contact"}

@@ -29,7 +29,7 @@ export function Layout({ children }) {
           </Link>
         </li>
         <li>
-          <Link href={"/"}>
+          <Link href={"/invitation"}>
             <Image
               src="/icons8-for-you-96.png"
               width={30}

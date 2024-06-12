@@ -1,4 +1,4 @@
-import HTMLtemplate from "../../../components/Emails/HTMLtemplate";
+import { HTMLeditor } from "../../../components/Emails/HTMLeditor";
 export default function invitationEditor() {
-  return <HTMLtemplate />;
+  return <HTMLeditor />;
 }
