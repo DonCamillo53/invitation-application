@@ -46,7 +46,7 @@ export default function HTMLtemplate({ settingsData }) {
         >
           <h2
             style={{
-              color: `${settingsData.headlineColor}`,
+              color: `${settingsData.colorHeadline}`,
               fontWeight: "lighter",
               marginBottom: "10px",
               textAlign: "center",
@@ -58,18 +58,31 @@ export default function HTMLtemplate({ settingsData }) {
             style={{
               width: "50px",
               marginBottom: "30px",
-              color: `${settingsData.headlineColor}`,
-              border: `solid 0.1px ${settingsData.headlineColor}`,
+              color: `${settingsData.colorHeadline}`,
+              border: `solid 0.1px ${settingsData.colorHeadline}`,
             }}
           />
           <h1
             style={{
-              color: `${settingsData.headlineColor}`,
+              color: `${settingsData.colorHeadline}`,
               textAlign: "center",
+              maxWidth: "75%",
+              wordWrap: "break-word",
+              wordBreak: "break-word",
             }}
           >
             {settingsData.headline.toUpperCase()}
           </h1>
+          <h3
+            style={{
+              color: `${settingsData.colorHeadline}`,
+              marginTop: "10px",
+
+              fontWeight: "lighter",
+            }}
+          >
+            {settingsData.date}
+          </h3>
         </div>
       </div>
       <div>
@@ -106,6 +119,8 @@ export default function HTMLtemplate({ settingsData }) {
             flexWrap: "wrap",
             gap: "20px",
             justifyContent: "center",
+            padding: "50px 0 50px 0",
+            backgroundColor: "white",
           }}
         >
           <button
@@ -114,7 +129,7 @@ export default function HTMLtemplate({ settingsData }) {
               fontWeight: "bold",
               border: "none",
               backgroundColor: `rgb(${hex2rgb(settingsData.colorTheme)})`,
-              color: `${settingsData.headlineColor}`,
+              color: `${settingsData.colorHeadline}`,
             }}
           >
             WILL ATTEND
@@ -125,11 +140,37 @@ export default function HTMLtemplate({ settingsData }) {
               fontWeight: "bold",
               border: "none",
               backgroundColor: `rgb(${hex2rgb(settingsData.colorTheme)})`,
-              color: `${settingsData.headlineColor}`,
+              color: `${settingsData.colorHeadline}`,
             }}
           >
             WILL NOT ATTEND
           </button>
+        </div>
+        <div
+          style={{
+            backgroundColor: `${settingsData.colorTheme}`,
+            color: `${settingsData.colorHeadline}`,
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "50px",
+          }}
+        >
+          <h4 style={{ marginBottom: "20px" }}>DATE</h4>
+          <p style={{ marginBottom: "40px" }}>
+            {settingsData.date}, {settingsData.time}
+          </p>
+          <h4 style={{ marginBottom: "20px" }}>LOCATION</h4>
+          <p
+            style={{
+              marginBottom: "40px",
+              maxWidth: "200px",
+              textAlign: "center",
+            }}
+          >
+            {settingsData.location}
+          </p>
         </div>
       </div>
     </div>

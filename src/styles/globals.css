@@ -7,17 +7,19 @@
 .app-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 body {
   display: flex;
   flex-direction: row;
   width: 100vw;
   min-height: 100vh;
+  justify-content: space-between;
 }
 main {
   display: flex;
   flex-direction: row;
-
+  justify-content: space-between;
   width: 100vw;
   min-height: 100vh;
   background-color: #fafafa;
@@ -46,7 +48,9 @@ li {
   position: relative;
   justify-content: center;
   align-items: center;
+  align-self: center;
   margin-bottom: 30px;
+  margin: 30px;
 }
 
 .form_group label {
@@ -79,6 +83,9 @@ li {
   border: solid 1px #bbbbbb;
   border-radius: 6px;
   padding: 10px;
+  resize: none;
+  overflow: scroll;
+  height: 200px;
 }
 
 .primary_button {
@@ -101,4 +108,14 @@ li {
   border: 1px solid #05164d;
   border-radius: 23px;
   background-color: white;
+}
+
+.editor_panel {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: scroll;
+  width: auto;
+  justify-content: left;
+  align-items: center;
 }

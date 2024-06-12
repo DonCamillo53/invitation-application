@@ -4,7 +4,15 @@ import styles from "./ContactPage.module.css";
 
 export function ContactPage({ handleSavingContact }) {
   return (
-    <div className={styles.contact_page_card}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        width: "100vw",
+        height: "100vh",
+        justifyContent: "space-between",
+      }}
+    >
       <AddContactPage handleSavingContact={handleSavingContact} />
       <Contacts />
     </div>
