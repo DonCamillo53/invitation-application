@@ -1,9 +1,11 @@
 import HTMLtemplate from "./HTMLtemplate";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useSWR from "swr";
 
-export function HTMLeditor() {
-  const [editor, setEditor] = useState({
-    colorTheme: "#00000",
+export function HTMLeditor({ handleSavingEmailDraft }) {
+  const { data, error, isLoading } = useSWR("/api/emailDraft");
+  const defaultSettings = {
+    colorTheme: "#000000",
     headline: "Annual Band Night",
     colorHeadline: "#ffffff",
     imageUrl:
@@ -11,18 +13,37 @@ export function HTMLeditor() {
     greeting: "Hi",
     text: `Get ready to rock the night away at our much-anticipated Annual Band Night! Join us for an evening filled with electrifying performances, great company, and unforgettable memories. Whether you're a fan of classic rock, indie, or the latest hits, there's something for everyone. Don't miss out on this spectacular night of music and fun! We can't wait to see you there! Best,`,
     location: `The Roxy Theatre
-    9009 West Sunset Blvd.
-    West Hollywood, CA 90069`,
+  9009 West Sunset Blvd.
+  West Hollywood, CA 90069`,
     date: `2030-01-01`,
-  });
+    time: "20:15",
+  };
+  const [editor, setEditor] = useState(defaultSettings);
+
+  useEffect(() => {
+    if (data) {
+      if (Array.isArray(data)) {
+        setEditor(data[0]);
+      } else {
+        setEditor(data);
+      }
+    }
+  }, [data]);
+
   function handleFormSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
-    const today = setEditor((prevState) => ({
+    const formDataObject = Object.fromEntries(formData.entries());
+    setEditor((prevState) => ({
       ...prevState,
-      ...data,
+      ...formDataObject,
     }));
+
+    handleSavingEmailDraft({
+      ...editor,
+      ...formDataObject,
+      _id: "666aea562162619d14c0b04c",
+    });
   }
 
   function handleInputChange(event) {
@@ -31,6 +52,14 @@ export function HTMLeditor() {
       ...prevState,
       [name]: value,
     }));
+  }
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>Error loading data</h1>;
   }
 
   return (
@@ -130,14 +159,38 @@ export function HTMLeditor() {
             />
           </div>
 
-          <button type="submit" className="secondary_button">
+          <button type="submit" className="primary_button">
             Save Draft
           </button>
         </form>
-        <button className="primary_button" styles={{ marginBottom: "50px" }}>
-          Send Invitation
+        <button
+          onClick={() => setEditor(defaultSettings)}
+          className="secondary_button"
+          style={{ marginBottom: "50px" }}
+        >
+          Reset Template
         </button>
       </div>
     </div>
   );
+}
+
+async function handleSavingEmailDraft(draft) {
+  try {
+    const response = await fetch("/api/emailDraft", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(draft),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to save draft");
+    }
+
+    const result = await response.json();
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
