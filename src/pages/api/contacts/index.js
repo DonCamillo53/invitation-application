@@ -15,7 +15,7 @@ import dbConnect from "../../../../db/dbConnect.js";
 
 export default async function handler(request, response) {
   await dbConnect();
-  console.log("I am in API Contacts", "\tmethod: ", request.method);
+
   if (request.method === "GET") {
     const contacts = await Contacts.find();
 

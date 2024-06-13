@@ -1,16 +1,19 @@
-// import mongoose from "mongoose";
+import mongoose from "mongoose";
 
-// const { Schema } = mongoose;
+const { Schema } = mongoose;
 
-// const emailDraftSchema = new Schema({
-//   name: { type: String, required: true },
-//   location: { type: String, required: true },
-//   image: { type: String, required: true },
-//   mapURL: { type: String, required: true },
-//   description: { type: String, required: true },
-//   comments: { type: [Schema.Types.ObjectId], ref: "Comment" },
-// });
+const emailDraftSchema = new Schema({
+  colorTheme: { type: String, required: true },
+  headline: { type: String, required: true },
+  colorHeadline: { type: String, required: true },
+  imageUrl: { type: String, required: true },
+  greeting: { type: String, required: true },
+  text: { type: String, required: true },
+  location: { type: String, required: true },
+  date: { type: String, required: true },
+});
 
-// const Place = mongoose.models.Place || mongoose.model("Place", placeSchema);
+const EmailDraft =
+  mongoose.models.EmailDraft || mongoose.model("EmailDraft", emailDraftSchema);
 
-// export default Place;
+export default EmailDraft;
