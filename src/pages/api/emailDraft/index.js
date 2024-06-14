@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
       const emailDrafts = await EmailDraft.find({
-        _id: "666aea562162619d14c0b04c",
+        _id: "666c563401196d2f5def850d",
       });
 
       if (!emailDrafts) {
