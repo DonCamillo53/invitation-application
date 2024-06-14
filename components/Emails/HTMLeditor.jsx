@@ -1,6 +1,7 @@
 import HTMLtemplate from "./HTMLtemplate";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
+import GET from "@/pages/api/sendEmail";
 
 export function HTMLeditor({ handleSavingEmailDraft }) {
   const { data, error, isLoading } = useSWR("/api/emailDraft");
@@ -169,6 +170,13 @@ export function HTMLeditor({ handleSavingEmailDraft }) {
           style={{ marginBottom: "50px" }}
         >
           Reset Template
+        </button>
+        <button
+          onClick={() => GET()}
+          className="secondary_button"
+          style={{ marginBottom: "50px" }}
+        >
+          Send
         </button>
       </div>
     </div>
