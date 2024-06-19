@@ -10,18 +10,32 @@ import {
   Button,
 } from "@react-email/components";
 
-const hex2rgb = (hex) => {
-  let bigint = parseInt(hex.slice(1), 16);
-  let r = (bigint >> 16) & 255;
-  let g = (bigint >> 8) & 255;
-  let b = bigint & 255;
-  return `${r}, ${g}, ${b}`;
-};
+export default function HTMLtemplateForReactMail(
+  {
+    // settingsData,
+    // contactData,
+  }
+) {
+  const settingsData = {
+    colorTheme: "#000000",
+    headline: "Annual Band Night",
+    colorHeadline: "#ffffff",
+    // imageUrl:
+    //   "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    greeting: "Hi",
+    text: `Get ready to rock the night away at our much-anticipated Annual Band Night! Join us for an evening filled with electrifying performances, great company, and unforgettable memories. Whether you're a fan of classic rock, indie, or the latest hits, there's something for everyone. Don't miss out on this spectacular night of music and fun! We can't wait to see you there! Best,`,
+    location: `The Roxy Theatre
+  9009 West Sunset Blvd.
+  West Hollywood, CA 90069`,
+    date: `2030-01-01`,
+    time: "20:15",
+  };
 
-export default function HTMLtemplateForReactMail({
-  settingsData,
-  contactData,
-}) {
+  const contactData = {
+    firstName: "Camillo",
+    lastName: "Hochberg",
+    email: "csmuellkippe@gmail.com",
+  };
   return (
     <Html>
       <Body>
@@ -34,14 +48,14 @@ export default function HTMLtemplateForReactMail({
           }}
         >
           <Section
-            style={{
-              backgroundImage: `url(${settingsData.imageUrl})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              width: "100%",
-              height: "50vh",
-              position: "relative",
-            }}
+          // style={{
+          //   backgroundImage: `url(${settingsData.imageUrl})`,
+          //   backgroundSize: "cover",
+          //   backgroundPosition: "center",
+          //   width: "100%",
+          //   height: "50vh",
+          //   position: "relative",
+          // }}
           >
             <Container
               style={{

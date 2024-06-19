@@ -5,7 +5,6 @@
   padding: 2rem;
   width: 500px;
   background: transparent;
-  border-right: 1px solid #bbbbbb;
 }
 .contact_group {
   display: flex;
@@ -104,4 +103,8 @@
 
 .add_contact_page p {
   font-size: 14px;
+}
+
+.hidden {
+  display: none;
 }

@@ -1,38 +1,48 @@
-// import Contact from "../../../../db/models/Contacts";
-// import connectMongoDB from "../../../../db/dbConnect";
-
-// export async function POST(request) {
-//   const { firstName, lastName, email, isAttending, isInvited } =
-//     await request.json();
-//   await connectMongoDB();
-//   await Contact.create({ firstName, lastName, email, isAttending, isInvited });
-//   return NextResponse.json({ message: "Contact Created" }, { status: 201 });
-// }
-
 import Contacts from "../../../../db/models/Contacts.js";
-
 import dbConnect from "../../../../db/dbConnect.js";
 
 export default async function handler(request, response) {
   await dbConnect();
 
   if (request.method === "GET") {
-    const contacts = await Contacts.find();
-
-    if (!contacts) {
-      return response.status(404).json({ status: "Not Found" });
+    try {
+      const contacts = await Contacts.find();
+      if (!contacts) {
+        return response.status(404).json({ status: "Not Found" });
+      }
+      response.status(200).json(contacts);
+    } catch (error) {
+      response.status(500).json({ error: error.message });
     }
-    response.status(200).json(contacts);
-  }
-  if (request.method === "POST") {
+  } else if (request.method === "POST") {
     try {
       const contactData = request.body;
       await Contacts.create(contactData);
-
       response.status(201).json({ status: "Contact created" });
     } catch (error) {
-      console.log(error);
       response.status(400).json({ error: error.message });
     }
+  } else if (request.method === "PUT") {
+    try {
+      const contactData = request.body;
+      const { _id, ...updateData } = contactData;
+
+      const updatedContact = await Contacts.findByIdAndUpdate(_id, updateData, {
+        new: true,
+        runValidators: true,
+      });
+
+      if (!updatedContact) {
+        return response.status(404).json({ status: "Not Found" });
+      }
+
+      return response
+        .status(200)
+        .json({ status: "Contact updated", data: updatedContact });
+    } catch (error) {
+      response.status(400).json({ error: error.message });
+    }
+  } else {
+    response.status(405).json({ status: "Method Not Allowed" });
   }
 }

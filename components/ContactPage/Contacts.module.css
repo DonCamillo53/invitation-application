@@ -1,15 +1,18 @@
 .contact_table {
   text-align: left;
+  height: 100vh;
+  overflow: scroll;
   width: 100%;
 }
 
 .contact_table tr {
-  height: 74px;
-  background-color: white;
-  border-radius: 30px;
+  height: 50px;
 }
 
 .contact_table td {
   background-color: transparent;
-  border: none;
+}
+
+.contacts_card {
+  width: 100%;
 }

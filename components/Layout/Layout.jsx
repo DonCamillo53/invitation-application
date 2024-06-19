@@ -29,14 +29,14 @@ export function Layout({ children }) {
           </Link>
         </li>
         <li>
-          <Link href={"/invitation"}>
+          <Link href={"/event"}>
             <Image
               src="/icons8-for-you-96.png"
               width={30}
               height={30}
               alt="Invitation"
             />
-            Invitation
+            Event
           </Link>
         </li>
       </ul>

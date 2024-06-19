@@ -1,7 +1,8 @@
 import { Button, Html } from "@react-email/components";
 import * as React from "react";
 
-export default function HTMLtemplate({ settingsData }) {
+export default function EventWebsite({ data, contactsData }) {
+  const settingsData = data[0];
   console.log("data is:", settingsData);
   function hex2rgb(hex) {
     const r = parseInt(hex.slice(1, 3), 16);
@@ -101,7 +102,7 @@ export default function HTMLtemplate({ settingsData }) {
               marginBottom: "30px",
             }}
           >
-            {settingsData.greeting} [Guest's Name],
+            {settingsData.greeting} {contactsData.firstName},
           </p>
           <p
             style={{

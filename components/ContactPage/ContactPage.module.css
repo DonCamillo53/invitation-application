@@ -1,9 +1,16 @@
 .contact_page_card {
   display: flex;
   flex-direction: row;
-  gap: 50px;
   background-color: white;
   box-shadow: 5px 0px 10px 1px rgba(0, 0, 0, 0.1);
   height: 95vh;
   margin-top: 93px;
+  justify-content: space-between;
+  width: 100%;
+  width: 80vw;
+  gap: 50px;
+}
+
+.hidden {
+  display: none;
 }

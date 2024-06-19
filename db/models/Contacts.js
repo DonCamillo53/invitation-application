@@ -8,6 +8,7 @@ const contactSchema = new Schema({
   email: { type: String, required: true },
   isAttending: { type: Boolean },
   isInvited: { type: Boolean },
+  emailLinkClicked: { type: Boolean },
 });
 
 const Contact =

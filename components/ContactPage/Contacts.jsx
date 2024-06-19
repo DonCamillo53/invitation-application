@@ -1,5 +1,4 @@
 import styles from "./Contacts.module.css";
-import Image from "next/image";
 import useSWR from "swr";
 import { mutate } from "swr";
 import {
@@ -22,7 +21,7 @@ export default function Contacts() {
     return;
   }
   return (
-    <div>
+    <div className={styles.contacts_card}>
       <Table aria-label="Guests Table" className={styles.contact_table}>
         <TableHeader>
           <TableColumn>Last Name</TableColumn>
@@ -32,7 +31,7 @@ export default function Contacts() {
         </TableHeader>
         <TableBody>
           {data.map((contact) => (
-            <TableRow key={contact._id}>
+            <TableRow className={styles.tableRow} key={contact._id}>
               <TableCell>{contact.lastName}</TableCell>
               <TableCell>{contact.firstName}</TableCell>
               <TableCell>{contact.email}</TableCell>
