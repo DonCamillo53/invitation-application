@@ -7,7 +7,19 @@
 .app-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+}
+.container_center {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  align-self: center;
+  padding: 50px 50px 75px 50px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 5px 0px 10px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 body {
   display: flex;
@@ -119,5 +131,41 @@ li {
   overflow: scroll;
   width: auto;
   justify-content: left;
+  align-items: center;
+}
+
+.error_message_banner {
+  background-color: #e14b3a;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.centered-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form_headline {
+  align-self: left;
+  margin-bottom: 30px;
+}
+
+.register_layout {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+}
+
+.register_window {
+  display: flex;
+  height: 100vh;
+  width: 50vw;
   align-items: center;
 }
