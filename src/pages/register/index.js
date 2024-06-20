@@ -1,4 +1,6 @@
+"use client";
 import RegisterForm from "../../../components/LoginForm/RegisterForm";
+import { useState } from "react";
 
 export default function Register() {
   return (

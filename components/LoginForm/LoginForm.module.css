@@ -12,3 +12,9 @@
   color: #000000;
   text-decoration: underline;
 }
+
+.spanInfo {
+  padding-top: 20px;
+  align-self: left;
+  text-align: left;
+}
