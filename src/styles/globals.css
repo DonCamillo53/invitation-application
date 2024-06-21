@@ -69,21 +69,16 @@ li {
   font-size: 14px;
   position: absolute;
   top: -10px;
+  color: #90949c;
   margin-left: 10px;
   background-color: white;
   padding: 0 5px;
 }
+
 .form_group input {
   height: 45px;
   width: 300px;
-  border: solid 1px #bbbbbb;
-  border-radius: 6px;
-  padding: 10px;
-}
-.form_group input {
-  height: 45px;
-  width: 300px;
-  border: solid 1px #bbbbbb;
+  border: solid 1px #90949c;
   background-color: white;
   border-radius: 6px;
   padding: 10px;
@@ -168,4 +163,31 @@ li {
   height: 100vh;
   width: 50vw;
   align-items: center;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  background-color: white;
+}
+
+input:focus {
+  background-color: white;
+}
+
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: black !important; /* Textfarbe */
+  transition: background-color 5000s ease-in-out 0s !important; /* Verhindert Hintergrundfarbe-Änderungen */
 }

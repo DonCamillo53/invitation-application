@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { ContactPage } from "../../../components/ContactPage/ContactPage";
 
-export default function contactIndex() {
+export default function ContactIndex() {
   const { mutate } = useSWR("/api/contacts");
 
   async function handleSavingContact(contact) {
