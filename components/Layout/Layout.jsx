@@ -1,6 +1,8 @@
+"use client";
 import styles from "./Layout.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import { signOut } from "next-auth/react";
 
 export function Layout({ children }) {
   return (
@@ -38,6 +40,7 @@ export function Layout({ children }) {
             />
             Event
           </Link>
+          <button onClick={() => signOut()}>Log Out</button>
         </li>
       </ul>
     </nav>

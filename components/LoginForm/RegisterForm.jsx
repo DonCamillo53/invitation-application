@@ -12,29 +12,43 @@ export default function RegisterForm() {
     console.log("data:", newData);
 
     if (
-      !e.target.password.value ||
-      !e.target.firstName.value ||
-      !e.target.lastName.value ||
-      !e.target.email.value
+      !newData.password ||
+      !newData.firstName ||
+      !newData.lastName ||
+      !newData.email
     ) {
       setError("Please fill out all fields.");
       return;
     }
-    let res;
+
     try {
-      res = await fetch("/api/register", {
+      const Userres = await fetch("/api/userExists", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: newData.email }),
+      });
+      const { user } = await Userres.json();
+      if (user) {
+        setError("User already exists.");
+        return;
+      }
+
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newData),
       });
+
+      if (res.ok) {
+        // redirect to login or another page
+        e.target.reset();
+        setError(""); // Clear any existing errors
+        // window.location.href = "/login"; // Uncomment to redirect
+      } else {
+        setError("Registration failed. Please try again.");
+      }
     } catch (error) {
       setError("Something went wrong. Please try again.");
-      return;
-    }
-
-    if (res.ok) {
-      // redirect(//)
-      e.target.reset();
     }
   };
 
