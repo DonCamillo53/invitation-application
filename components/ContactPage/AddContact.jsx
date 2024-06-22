@@ -16,18 +16,17 @@ export default function AddContactPage({ handleSavingContact }) {
 
   return (
     <div className={styles.add_contact_page}>
-      <h2>Add New Contacts</h2>
-      <div className={styles.contact_group}>
+      <div className="contact_group">
         <form onSubmit={handleManualSubmit}>
-          <div className={styles.form_group}>
+          <div className="form_group">
             <label htmlFor="firstName">First Name</label>
             <input name="firstName" type="text" />
           </div>
-          <div className={styles.form_group}>
+          <div className="form_group">
             <label htmlFor="lastName">Last Name</label>
             <input name="lastName" type="text" />
           </div>
-          <div className={styles.form_group}>
+          <div className="form_group">
             <label htmlFor="email">E-Mail</label>
             <input name="email" type="email" />
           </div>

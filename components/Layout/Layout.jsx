@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 export function Layout({ children }) {
   return (
     <nav className={styles.nav}>
-      <ul>
+      {/* <ul>
         <li>
           <Link href={"/"}>
             <Image
@@ -42,7 +42,7 @@ export function Layout({ children }) {
           </Link>
           <button onClick={() => signOut()}>Log Out</button>
         </li>
-      </ul>
+      </ul> */}
     </nav>
   );
 }
