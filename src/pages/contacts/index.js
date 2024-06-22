@@ -33,6 +33,15 @@ export default function ContactsPage() {
       mutate();
     }
   }
+  const { data, isLoading } = useSWR("/api/contacts");
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!data) {
+    return;
+  }
 
   return (
     <div className="main_container">
@@ -76,7 +85,7 @@ export default function ContactsPage() {
             />
           )}
         </button>{" "}
-        <ContactTable />
+        <ContactTable data={data} />
       </div>
     </div>
   );

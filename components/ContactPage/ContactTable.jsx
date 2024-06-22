@@ -2,11 +2,11 @@ import MUIDataTable from "mui-datatables";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Image from "next/image";
 
-export default function ContactTable() {
+export default function ContactTable({ data }) {
   const columns = [
     {
       name: "lastName",
-      label: "Last Name",
+      label: <p style={{ textTransform: "capitalize" }}>Last Name</p>,
       options: {
         filter: false,
         sort: true,
@@ -14,7 +14,7 @@ export default function ContactTable() {
     },
     {
       name: "firstName",
-      label: "First Name",
+      label: <p style={{ textTransform: "capitalize" }}>First Name</p>,
       options: {
         filter: false,
         sort: true,
@@ -22,15 +22,15 @@ export default function ContactTable() {
     },
     {
       name: "email",
-      label: "E-Mail",
+      label: <p style={{ textTransform: "capitalize" }}>E-Mail</p>,
       options: {
         filter: false,
-        sort: false,
+        sort: true,
       },
     },
     {
       name: "isAttending",
-      label: "Attending",
+      label: <p style={{ textTransform: "capitalize" }}>Attending</p>,
       options: {
         filter: true,
         sort: true,
@@ -68,7 +68,7 @@ export default function ContactTable() {
     },
     {
       name: "isInvited",
-      label: "Invited",
+      label: <p style={{ textTransform: "capitalize" }}>Invited</p>,
       options: {
         filter: true,
         sort: true,
@@ -97,7 +97,7 @@ export default function ContactTable() {
     },
   ];
 
-  const data = [
+  const contacts = [
     {
       firstName: "Anna",
       lastName: "Peters",
@@ -254,11 +254,10 @@ export default function ContactTable() {
         MuiTableCell: {
           styleOverrides: {
             root: {},
-            head: {
-              fontWeight: "bold",
-            },
+
             body: {},
             head: {
+              padding: "0",
               margin: "20px 0",
             },
           },
