@@ -7,42 +7,52 @@ import { signOut } from "next-auth/react";
 export function Layout({ children }) {
   return (
     <nav className={styles.nav}>
-      {/* <ul>
+      <ul>
         <li>
-          <Link href={"/"}>
+          <Link href={"/dashboard"}>
             <Image
-              src="/icons8-dashboard-96.png"
+              src="/Dashboard.png"
               width={30}
               height={30}
               alt="Dashboard"
             />
-            Dashboard
+            <span>Dashboard</span>
           </Link>
         </li>
         <li>
           <Link href={"/contacts"}>
             <Image
-              src="/icons8-contacts-96.png"
+              src="/DuplicateContacts.png"
               width={30}
               height={30}
               alt="Contacts"
             />
-            Contacts
+            <span>Contacts</span>
           </Link>
         </li>
         <li>
           <Link href={"/event"}>
             <Image
-              src="/icons8-for-you-96.png"
+              src="/WebsiteEditor.png"
               width={30}
               height={30}
               alt="Invitation"
             />
-            Event
+            <span>Event</span>
           </Link>
-          <button onClick={() => signOut()}>Log Out</button>
         </li>
-      </ul> */}
+      </ul>
+      <ul className={styles.signOut}>
+        <li>
+          <button
+            onClick={() => signOut()}
+            style={{ background: "none", border: "none", cursor: "pointer" }}
+          >
+            <Image src="/Logout.png" width={30} height={30} alt="Invitation" />
+          </button>
+          <span>Sign Out</span>
+        </li>
+      </ul>
     </nav>
   );
 }
