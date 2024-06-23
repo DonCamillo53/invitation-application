@@ -1,13 +1,5 @@
 import useSWR from "swr";
 import Image from "next/image";
-// import { ContactPage } from "../../../components/ContactPage/ContactPage";
-
-// export default function ContactIndex() {
-//
-//   return <ContactPage handleSavingContact={handleSavingContact} />;
-// }
-
-// ------------------------
 
 import Contacts from "../../../components/ContactPage/Contacts";
 import AddContactPage from "../../../components/ContactPage/AddContact";
