@@ -1,5 +1,6 @@
 import { HTMLeditor } from "../../../components/Emails/HTMLeditor";
 import useSWR from "swr";
+import { Layout } from "../../../components/Layout/Layout";
 export default function invitationEditor() {
   const { mutate } = useSWR("/api/emailDraft");
 
@@ -16,5 +17,10 @@ export default function invitationEditor() {
     }
   }
 
-  return <HTMLeditor handleSavingEmailDraft={handleSavingEmailDraft} />;
+  return (
+    <>
+      <Layout />
+      <HTMLeditor handleSavingEmailDraft={handleSavingEmailDraft} />
+    </>
+  );
 }
