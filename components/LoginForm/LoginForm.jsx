@@ -68,7 +68,7 @@ export default function RegisterForm() {
         {error && <div className="error_message_banner">{error}</div>}
         <div className={styles.spanInfo}>
           <Link href="/register">
-            <span>Don't have an account yet? </span>
+            <span>Don&apos;t have an account yet? </span>
             <span className={styles.underline_link}>Register</span>
           </Link>
         </div>
