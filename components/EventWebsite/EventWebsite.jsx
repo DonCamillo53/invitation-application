@@ -1,9 +1,13 @@
 import { Button, Html } from "@react-email/components";
 import * as React from "react";
 
-export default function EventWebsite({ data, contactsData }) {
+export default function EventWebsite({
+  data,
+  contactsData,
+  handleIsAttending,
+  id,
+}) {
   const settingsData = data[0];
-  console.log("data is:", settingsData);
   function hex2rgb(hex) {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
@@ -16,7 +20,7 @@ export default function EventWebsite({ data, contactsData }) {
       style={{
         width: "100vw",
         height: "100%",
-        maxWidth: "700px",
+
         backgroundColor: "white",
       }}
     >
@@ -77,7 +81,6 @@ export default function EventWebsite({ data, contactsData }) {
             style={{
               color: `${settingsData.colorHeadline}`,
               marginTop: "10px",
-
               fontWeight: "lighter",
             }}
           >
@@ -93,13 +96,14 @@ export default function EventWebsite({ data, contactsData }) {
             width: "90vw",
             padding: "40px",
             maxWidth: "650px",
+            margin: "auto",
           }}
         >
           <p
             style={{
-              alignSelf: "left",
               fontWeight: "bold",
               marginBottom: "30px",
+              width: "100%",
             }}
           >
             {settingsData.greeting} {contactsData.firstName},
@@ -124,6 +128,7 @@ export default function EventWebsite({ data, contactsData }) {
           }}
         >
           <button
+            onClick={() => handleIsAttending(id, "true")}
             style={{
               padding: "20px",
               fontWeight: "bold",
@@ -135,6 +140,7 @@ export default function EventWebsite({ data, contactsData }) {
             WILL ATTEND
           </button>
           <button
+            onClick={() => handleIsAttending(id, "false")}
             style={{
               padding: "20px",
               fontWeight: "bold",

@@ -24,10 +24,9 @@ export default async function handler(request, response) {
     }
   } else if (request.method === "PUT") {
     try {
-      const contactData = request.body;
-      const { _id, ...updateData } = contactData;
+      const { id, ...updateData } = request.body;
 
-      const updatedContact = await Contacts.findByIdAndUpdate(_id, updateData, {
+      const updatedContact = await Contacts.findByIdAndUpdate(id, updateData, {
         new: true,
         runValidators: true,
       });

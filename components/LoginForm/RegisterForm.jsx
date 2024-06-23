@@ -9,7 +9,6 @@ export default function RegisterForm() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const newData = Object.fromEntries(formData);
-    console.log("data:", newData);
 
     if (
       !newData.password ||

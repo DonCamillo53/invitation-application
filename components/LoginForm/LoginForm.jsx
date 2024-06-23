@@ -15,7 +15,6 @@ export default function RegisterForm() {
     e.preventDefault();
 
     try {
-      console.log("data", data, "email:", data.email);
       const res = await signIn("credentials", {
         redirect: false,
         email: data.email,

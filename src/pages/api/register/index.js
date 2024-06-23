@@ -10,7 +10,6 @@ export default async function handler(request, response) {
       const { firstName, lastName, email, password } = request.body;
       const hashedPassword = await bcrypt.hash(password, 10);
       const userData = { firstName, lastName, email, password: hashedPassword };
-      console.log("userData:", userData);
       await User.create(userData);
       response.status(201).json({ status: "User Created" });
     } catch (error) {

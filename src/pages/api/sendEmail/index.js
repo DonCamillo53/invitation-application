@@ -3,42 +3,34 @@ import { NextResponse } from "next/server";
 
 const resend = new Resend("re_9499LcQC_Kn6hNb3ZY9HWrC75vmDgfuU5");
 
-const emailDraftData = {
-  colorTheme: "#000000",
-  headline: "Annual Band Night",
-  colorHeadline: "#ffffff",
-  imageUrl:
-    "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-  greeting: "Hi",
-  text: `Get ready to rock the night away at our much-anticipated Annual Band Night! Join us for an evening filled with electrifying performances, great company, and unforgettable memories. Whether you're a fan of classic rock, indie, or the latest hits, there's something for everyone. Don't miss out on this spectacular night of music and fun! We can't wait to see you there! Best,`,
-  location: `The Roxy Theatre
-  9009 West Sunset Blvd.
-  West Hollywood, CA 90069`,
-  date: `2030-01-01`,
-  time: "20:15",
-};
+export default async function handler(req, res) {
+  const fetcher = async (url) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  };
 
-const contactData = [
-  {
-    _id: "666c574c68050d2ea6bc60b6",
-    firstName: "Camillo",
-    lastName: "Hochberg",
-    email: "csmuellkippe@gmail.com",
-  },
-  {
-    _id: "888c63657498r949999",
-    firstName: "Peter",
-    lastName: "Petersen",
-    email: "c.hochberg@hotmail.de",
-  },
-];
-
-export default async function GET() {
   try {
+    const [emailDraftDataArray, contactData] = await Promise.all([
+      fetcher("http://localhost:3000/api/emailDraft"),
+      fetcher("http://localhost:3000/api/contacts"),
+    ]);
+
+    console.log("Email Draft Data:", emailDraftDataArray); // Debugging log
+    console.log("Contact Data:", contactData); // Debugging log
+
+    if (!emailDraftDataArray || !contactData) {
+      return res.status(404).json({ message: "Data not found" });
+    }
+
+    const emailDraftData = emailDraftDataArray[0];
+
     console.log("Sending email...");
     await Promise.all(
       contactData.map(async (contact) => {
-        const response = await resend.emails.send({
+        await resend.emails.send({
           from: "info@brandsandgoods.de",
           to: contact.email,
           subject: `Invitation to ${emailDraftData.headline}!`,
@@ -224,7 +216,7 @@ export default async function GET() {
                             <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
 
                               <!--[if mso]><table width="100%"><tr><td><![endif]-->
-                              <h1 class="v-text-align" style="margin: 0px; color: ${emailDraftData.colorHeadline}; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Open Sans',sans-serif; font-size: 33px; font-weight: 400;"><span><span><span><span><span><span><strong style= "text-transform:uppercase;">${emailDraftData.headline}</strong></span></span>
+                              <h1 class="v-text-align" style="margin: 0px; color: ${emailDraftData.colorHeadline}; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Open Sans',sans-serif; font-size: 33px; font-weight: 400;"><span><span><span><span><span><span><strong style="text-transform:uppercase;">${emailDraftData.headline}</strong></span></span>
                                 </span>
                                 </span>
                                 </span>
@@ -325,10 +317,10 @@ export default async function GET() {
         });
       })
     );
-    return NextResponse.json({ status: "Ok" });
+    return res.status(200).json({ status: "Ok" });
   } catch (error) {
     console.error("Error sending email:", error);
-    return NextResponse.json({
+    return res.status(500).json({
       status: "Failed to send email",
       error: error.message,
     });

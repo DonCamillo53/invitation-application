@@ -8,7 +8,6 @@ export default async function handler(request, response) {
     try {
       const { email } = request.body; // Correct way to parse JSON body in Next.js API routes
       const user = await User.findOne({ email }).select("_id");
-      console.log("user:", user);
 
       return response.json({ user });
     } catch (error) {

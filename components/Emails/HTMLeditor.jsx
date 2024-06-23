@@ -172,7 +172,6 @@ export function HTMLeditor({ handleSavingEmailDraft }) {
           Reset Template
         </button>
         <button
-          // onClick={() => GET()}
           onClick={async () => await fetch("/api/sendEmail")}
           className="secondary_button"
           style={{ marginBottom: "50px" }}
