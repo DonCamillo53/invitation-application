@@ -100,7 +100,7 @@ export default function HTMLtemplate({ settingsData }) {
               marginBottom: "30px",
             }}
           >
-            {settingsData.greeting} [Guest's Name],
+            {settingsData.greeting} [Guest&apos;s Name],
           </p>
           <p
             style={{
