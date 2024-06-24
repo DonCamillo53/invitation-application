@@ -47,6 +47,45 @@ main {
   background-color: white;
   box-shadow: 5px 0px 10px 1px rgba(0, 0, 0, 0.1);
 }
+.main_container_loading {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 110px 20px 20px 80px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #eeeff7;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  animation: blinker 0.5s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    background-color: white;
+  }
+}
+.floating_headline {
+  position: absolute;
+  top: -50px;
+  left: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #6b6b6b;
+}
+.floating_headline_loading {
+  position: absolute;
+  top: -50px;
+  left: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #eeeff7;
+  border-radius: 10px;
+  height: 30px;
+  width: 200px;
+  animation: blinker 1s linear infinite;
+}
+
 .floating_headline {
   position: absolute;
   top: -50px;

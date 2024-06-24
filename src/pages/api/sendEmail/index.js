@@ -1,7 +1,28 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend("re_9499LcQC_Kn6hNb3ZY9HWrC75vmDgfuU5");
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+async function handleIsInvited(id) {
+  try {
+    const response = await fetch(`${process.env.BASE_URL}/api/contacts`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, isInvited: true }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update contact");
+    }
+
+    const result = await response.json();
+    console.log("Update successful:", result);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
 
 export default async function handler(req, res) {
   const fetcher = async (url) => {
@@ -14,12 +35,12 @@ export default async function handler(req, res) {
 
   try {
     const [emailDraftDataArray, contactData] = await Promise.all([
-      fetcher("http://localhost:3000/api/emailDraft"),
-      fetcher("http://localhost:3000/api/contacts"),
+      fetcher(`${process.env.BASE_URL}/api/emailDraft`),
+      fetcher(`${process.env.BASE_URL}/api/contacts`),
     ]);
 
-    console.log("Email Draft Data:", emailDraftDataArray); // Debugging log
-    console.log("Contact Data:", contactData); // Debugging log
+    console.log("Email Draft Data:", emailDraftDataArray);
+    console.log("Contact Data:", contactData);
 
     if (!emailDraftDataArray || !contactData) {
       return res.status(404).json({ message: "Data not found" });
@@ -315,6 +336,7 @@ export default async function handler(req, res) {
 
 </html>`,
         });
+        await handleIsInvited(contact._id);
       })
     );
     return res.status(200).json({ status: "Ok" });

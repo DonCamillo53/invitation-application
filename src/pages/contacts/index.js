@@ -28,7 +28,12 @@ export default function ContactsPage() {
   const { data, isLoading } = useSWR("/api/contacts");
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="main_container_loading">
+        <div className="floating_headline_loading"></div>
+        <p>Loading...</p>;
+      </div>
+    );
   }
 
   if (!data) {
