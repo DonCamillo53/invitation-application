@@ -65,23 +65,35 @@ export function HTMLeditor({ handleSavingEmailDraft }) {
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        height: "100vh",
-        justifyContent: "space-between",
-      }}
+      className="main_container"
+      // style={{
+      //   display: "flex",
+      //   flexDirection: "row",
+      //   height: "100vh",
+      //   justifyContent: "space-between",
+      // }}
     >
+      <h2 className="floating_headline">Event Editor</h2>
       <div
+        className="permanent_div"
         style={{
           display: "flex",
-          height: "100vh",
           justifyContent: "center",
           backgroundColor: "rgb(245, 245, 245)",
-          padding: "30px",
+          margin: "0",
+          borderRadius: " 10px 0 0 10px",
         }}
       >
-        <div style={{ overflow: "scroll" }}>
+        <div
+          style={{
+            overflow: "scroll",
+            height: "100%",
+            resize: "horizontal",
+            width: "50%",
+            minWidth: "400px",
+            maxWidth: "90%",
+          }}
+        >
           <HTMLtemplate settingsData={editor} />
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { Button, Html } from "@react-email/components";
 import * as React from "react";
 
 export default function HTMLtemplate({ settingsData }) {
@@ -12,9 +11,8 @@ export default function HTMLtemplate({ settingsData }) {
   return (
     <div
       style={{
-        width: "100vw",
+        width: "100%",
         height: "100%",
-        maxWidth: "700px",
         backgroundColor: "white",
       }}
     >
@@ -30,7 +28,7 @@ export default function HTMLtemplate({ settingsData }) {
       >
         <div
           style={{
-            backgroundColor: `rgb(${hex2rgb(settingsData.colorTheme)},0.5)`,
+            backgroundColor: `rgba(${hex2rgb(settingsData.colorTheme)}, 0.5)`,
             position: "absolute",
             top: "0",
             left: "0",
@@ -75,7 +73,6 @@ export default function HTMLtemplate({ settingsData }) {
             style={{
               color: `${settingsData.colorHeadline}`,
               marginTop: "10px",
-
               fontWeight: "lighter",
             }}
           >
@@ -91,20 +88,24 @@ export default function HTMLtemplate({ settingsData }) {
             width: "90vw",
             padding: "40px",
             maxWidth: "650px",
+            margin: "auto",
+            justifyContent: "center",
           }}
         >
           <p
             style={{
-              alignSelf: "left",
               fontWeight: "bold",
               marginBottom: "30px",
             }}
           >
-            {settingsData.greeting} [Guest&apos;s Name],
+            {settingsData.greeting} [Guest's Name],
           </p>
           <p
             style={{
               lineHeight: "27px",
+              wordWrap: "break-word",
+              wordBreak: "break-word",
+              overflowWrap: "break-word",
             }}
           >
             {settingsData.text}
@@ -165,6 +166,8 @@ export default function HTMLtemplate({ settingsData }) {
               marginBottom: "40px",
               maxWidth: "200px",
               textAlign: "center",
+              wordWrap: "break-word",
+              wordBreak: "break-word",
             }}
           >
             {settingsData.location}
