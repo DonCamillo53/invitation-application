@@ -56,11 +56,21 @@ export function HTMLeditor({ handleSavingEmailDraft }) {
   }
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="main_container_loading">
+        <div className="floating_headline_loading"></div>
+        <p>Loading...</p>;
+      </div>
+    );
   }
 
   if (error) {
-    return <h1>Error loading data</h1>;
+    return (
+      <div className="main_container_loading">
+        <div className="floating_headline_loading"></div>
+        <p>Failed loading data...</p>;
+      </div>
+    );
   }
 
   return (
