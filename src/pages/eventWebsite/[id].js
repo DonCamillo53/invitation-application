@@ -68,7 +68,12 @@ export default function EventPage() {
   }, [id]);
 
   if (!contactData || !websiteData) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="main_container_loading">
+        <div className="floating_headline_loading"></div>
+        <p>Loading...</p>;
+      </div>
+    );
   }
 
   if (contactError || websiteError) {
