@@ -50,7 +50,7 @@ export function Layout({ children }) {
           >
             <Image src="/Logout.png" width={30} height={30} alt="Invitation" />
           </button>
-          <span>Sign Out</span>
+          <span>SignOut</span>
         </li>
       </ul>
     </nav>
