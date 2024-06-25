@@ -1,10 +1,10 @@
 import HTMLtemplate from "./HTMLtemplate";
 import { useState, useEffect } from "react";
+import useSWR, { mutate } from "swr";
 
-import useSWR from "swr";
-
-export function HTMLeditor({ handleSavingEmailDraft }) {
+export function HTMLeditor() {
   const { data, error, isLoading } = useSWR("/api/emailDraft");
+  const [saveState, setSaveState] = useState(null);
   const defaultSettings = {
     colorTheme: "#000000",
     headline: "Annual Band Night",
@@ -30,6 +30,37 @@ export function HTMLeditor({ handleSavingEmailDraft }) {
       }
     }
   }, [data]);
+
+  function handleStateBanner(state) {
+    setSaveState(state);
+    setTimeout(() => {
+      setSaveState(null);
+    }, 10000);
+  }
+
+  async function handleSavingEmailDraft(draft) {
+    try {
+      const response = await fetch("/api/emailDraft", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(draft),
+      });
+
+      if (response.ok) {
+        mutate("/api/emailDraft");
+        handleStateBanner(true);
+      } else {
+        handleStateBanner(false);
+      }
+
+      const result = await response.json();
+    } catch (error) {
+      console.error("Error:", error);
+      handleStateBanner(false);
+    }
+  }
 
   function handleFormSubmit(event) {
     event.preventDefault();
@@ -59,7 +90,7 @@ export function HTMLeditor({ handleSavingEmailDraft }) {
     return (
       <div className="main_container_loading">
         <div className="floating_headline_loading"></div>
-        <p>Loading...</p>;
+        <p>Loading...</p>
       </div>
     );
   }
@@ -68,159 +99,144 @@ export function HTMLeditor({ handleSavingEmailDraft }) {
     return (
       <div className="main_container_loading">
         <div className="floating_headline_loading"></div>
-        <p>Failed loading data...</p>;
+        <p>Failed loading data...</p>
       </div>
     );
   }
 
   return (
-    <div
-      className="main_container"
-      // style={{
-      //   display: "flex",
-      //   flexDirection: "row",
-      //   height: "100vh",
-      //   justifyContent: "space-between",
-      // }}
-    >
-      <h2 className="floating_headline">Event Editor</h2>
-      <div
-        className="permanent_div"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          backgroundColor: "rgb(245, 245, 245)",
-          margin: "0",
-          borderRadius: " 10px 0 0 10px",
-        }}
-      >
+    <>
+      {saveState === true && (
+        <div className="success_message_banner_top">
+          Draft saved successfully!
+        </div>
+      )}
+      {saveState === false && (
+        <div className="error_message_banner_top">
+          There was an error saving the draft
+        </div>
+      )}
+
+      <div className="main_container">
+        <h2 className="floating_headline">Event Editor</h2>
         <div
+          className="permanent_div"
           style={{
-            overflow: "scroll",
-            height: "100%",
-            resize: "horizontal",
-            width: "50%",
-            minWidth: "400px",
-            maxWidth: "90%",
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "rgb(245, 245, 245)",
+            margin: "0",
+            borderRadius: " 10px 0 0 10px",
           }}
         >
-          <HTMLtemplate settingsData={editor} />
+          <div
+            style={{
+              overflow: "scroll",
+              height: "100%",
+              resize: "horizontal",
+              width: "50%",
+              minWidth: "400px",
+              maxWidth: "90%",
+            }}
+          >
+            <HTMLtemplate settingsData={editor} />
+          </div>
+        </div>
+        <div className="editor_panel">
+          <form onSubmit={handleFormSubmit} className="editor_form">
+            <div className="form_group">
+              <label htmlFor="headline">Headline Text</label>
+              <input
+                name="headline"
+                type="text"
+                value={editor.headline}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form_group">
+              <label htmlFor="colorHeadline">Color Headline</label>
+              <input
+                name="colorHeadline"
+                type="color"
+                value={editor.colorHeadline}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form_group">
+              <label htmlFor="greeting">Greeting</label>
+              <input
+                name="greeting"
+                type="text"
+                value={editor.greeting}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form_group">
+              <label htmlFor="text">Text</label>
+              <textarea
+                name="text"
+                value={editor.text}
+                onChange={handleInputChange}
+                rows={20}
+              />
+            </div>
+            <div className="form_group">
+              <label htmlFor="date">Date</label>
+              <input
+                name="date"
+                type="date"
+                value={editor.date}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form_group">
+              <label htmlFor="time">Time</label>
+              <input
+                name="time"
+                type="time"
+                value={editor.time}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form_group">
+              <label htmlFor="colorTheme">Color Theme</label>
+              <input
+                name="colorTheme"
+                type="color"
+                value={editor.colorTheme}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form_group">
+              <label htmlFor="imageUrl">Image URL</label>
+              <input
+                name="imageUrl"
+                type="text"
+                value={editor.imageUrl}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <button type="submit" className="primary_button">
+              Save Draft
+            </button>
+          </form>
+          <button
+            onClick={() => setEditor(defaultSettings)}
+            className="secondary_button"
+            style={{ marginBottom: "50px" }}
+          >
+            Reset Template
+          </button>
+          <button
+            onClick={async () => await fetch("/api/sendEmail")}
+            className="secondary_button"
+            style={{ marginBottom: "50px" }}
+          >
+            Send
+          </button>
         </div>
       </div>
-      <div className="editor_panel">
-        <form onSubmit={handleFormSubmit} className="editor_form">
-          <div className="form_group">
-            <label htmlFor="headline">Headline Text</label>
-            <input
-              name="headline"
-              type="text"
-              value={editor.headline}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form_group">
-            <label htmlFor="colorHeadline">Color Headline</label>
-            <input
-              name="colorHeadline"
-              type="color"
-              value={editor.colorHeadline}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form_group">
-            <label htmlFor="greeting">Greeting</label>
-            <input
-              name="greeting"
-              type="text"
-              value={editor.greeting}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form_group">
-            <label htmlFor="text">Text</label>
-            <textarea
-              name="text"
-              value={editor.text}
-              onChange={handleInputChange}
-              rows={20}
-            />
-          </div>
-          <div className="form_group">
-            <label htmlFor="date">Date</label>
-            <input
-              name="date"
-              type="date"
-              value={editor.date}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form_group">
-            <label htmlFor="time">Time</label>
-            <input
-              name="time"
-              type="time"
-              value={editor.time}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form_group">
-            <label htmlFor="colorTheme">Color Theme</label>
-            <input
-              name="colorTheme"
-              type="color"
-              value={editor.colorTheme}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="form_group">
-            <label htmlFor="imageUrl">Image URL</label>
-            <input
-              name="imageUrl"
-              type="text"
-              value={editor.imageUrl}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <button type="submit" className="primary_button">
-            Save Draft
-          </button>
-        </form>
-        <button
-          onClick={() => setEditor(defaultSettings)}
-          className="secondary_button"
-          style={{ marginBottom: "50px" }}
-        >
-          Reset Template
-        </button>
-        <button
-          onClick={async () => await fetch("/api/sendEmail")}
-          className="secondary_button"
-          style={{ marginBottom: "50px" }}
-        >
-          Send
-        </button>
-      </div>
-    </div>
+    </>
   );
-}
-
-async function handleSavingEmailDraft(draft) {
-  try {
-    const response = await fetch("/api/emailDraft", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(draft),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to save draft");
-    }
-
-    const result = await response.json();
-  } catch (error) {
-    console.error("Error:", error);
-  }
 }
