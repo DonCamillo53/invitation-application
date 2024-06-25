@@ -16,7 +16,7 @@ export function HTMLeditor() {
     location: `The Roxy Theatre
   9009 West Sunset Blvd.
   West Hollywood, CA 90069`,
-    date: `2030-01-01`,
+    date: `2020-01-01`,
     time: "20:15",
   };
   const [editor, setEditor] = useState(defaultSettings);
