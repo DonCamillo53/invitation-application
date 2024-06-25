@@ -1,16 +1,23 @@
 import useSWR from "swr";
 import Image from "next/image";
-
+import { useState } from "react";
 import Contacts from "../../../components/ContactPage/Contacts";
 import AddContactPage from "../../../components/ContactPage/AddContact";
 import styles from "../../../components/ContactPage/ContactPage.module.css";
-import { useState } from "react";
 import { Layout } from "../../../components/Layout/Layout";
 import ContactTable from "../../../components/ContactPage/ContactTable";
 
 export default function ContactsPage() {
+  const [saveState, setSaveState] = useState(null);
   const { mutate } = useSWR("/api/contacts");
   const [toggleDisplay, setToggleDisplay] = useState(false);
+
+  function handleStateBanner(state) {
+    setSaveState(state);
+    setTimeout(() => {
+      setSaveState(null);
+    }, 10000);
+  }
 
   async function handleSavingContact(contact) {
     const response = await fetch("/api/contacts", {
@@ -23,25 +30,36 @@ export default function ContactsPage() {
 
     if (response.ok) {
       mutate();
+      handleStateBanner(true);
+    } else {
+      handleStateBanner(false);
     }
   }
-  const { data, isLoading } = useSWR("/api/contacts");
 
-  if (isLoading) {
+  const { data, error } = useSWR("/api/contacts");
+
+  if (!data && !error) {
     return (
       <div className="main_container_loading">
         <div className="floating_headline_loading"></div>
-        <p>Loading...</p>;
+        <p>Loading...</p>
       </div>
     );
   }
 
-  if (!data) {
-    return;
-  }
-
   return (
     <div className="main_container">
+      {saveState === true && (
+        <div className="success_message_banner_top">
+          Contacts saved successfully!
+        </div>
+      )}
+      {saveState === false && (
+        <div className="error_message_banner_top">
+          There was an error saving contacts
+        </div>
+      )}
+
       <Layout />
 
       {toggleDisplay && (
@@ -50,6 +68,7 @@ export default function ContactsPage() {
           <AddContactPage handleSavingContact={handleSavingContact} />
         </div>
       )}
+
       <div className="permanent_div">
         <div>
           <h2 className="floating_headline">Contacts</h2>
@@ -69,19 +88,19 @@ export default function ContactsPage() {
           {toggleDisplay ? (
             <Image
               src="/closeButton.png"
-              alt="add contacts"
+              alt="close add contacts"
               width="30"
               height="30"
             />
           ) : (
             <Image
               src="/addButton.png"
-              alt="close add contacts"
+              alt="add contacts"
               width="30"
               height="30"
             />
           )}
-        </button>{" "}
+        </button>
         <ContactTable data={data} />
       </div>
     </div>
