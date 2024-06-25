@@ -5,6 +5,7 @@ import useSWR, { mutate } from "swr";
 export function HTMLeditor() {
   const { data, error, isLoading } = useSWR("/api/emailDraft");
   const [saveState, setSaveState] = useState(null);
+  const [sendState, setSendState] = useState(null);
   const defaultSettings = {
     colorTheme: "#000000",
     headline: "Annual Band Night",
@@ -13,10 +14,9 @@ export function HTMLeditor() {
       "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     greeting: "Hi",
     text: `Get ready to rock the night away at our much-anticipated Annual Band Night! Join us for an evening filled with electrifying performances, great company, and unforgettable memories. Whether you're a fan of classic rock, indie, or the latest hits, there's something for everyone. Don't miss out on this spectacular night of music and fun! We can't wait to see you there! Best,`,
-    location: `The Roxy Theatre
-  9009 West Sunset Blvd.
-  West Hollywood, CA 90069`,
-    date: `2020-01-01`,
+    location:
+      "The Roxy Theatre\n  9009 West Sunset Blvd.\n  West Hollywood, CA 90069",
+    date: "2020-01-01",
     time: "20:15",
   };
   const [editor, setEditor] = useState(defaultSettings);
@@ -35,6 +35,13 @@ export function HTMLeditor() {
     setSaveState(state);
     setTimeout(() => {
       setSaveState(null);
+    }, 10000);
+  }
+
+  function handleSendStateBanner(state) {
+    setSendState(state);
+    setTimeout(() => {
+      setSendState(null);
     }, 10000);
   }
 
@@ -116,7 +123,16 @@ export function HTMLeditor() {
           There was an error saving the draft
         </div>
       )}
-
+      {sendState === true && (
+        <div className="success_message_banner_top">
+          Invitation sent successfully!
+        </div>
+      )}
+      {sendState === false && (
+        <div className="error_message_banner_top">
+          There was an error sending the invitation
+        </div>
+      )}
       <div className="main_container">
         <h2 className="floating_headline">Event Editor</h2>
         <div
@@ -126,7 +142,7 @@ export function HTMLeditor() {
             justifyContent: "center",
             backgroundColor: "rgb(245, 245, 245)",
             margin: "0",
-            borderRadius: " 10px 0 0 10px",
+            borderRadius: "10px 0 0 10px",
           }}
         >
           <div
@@ -229,7 +245,19 @@ export function HTMLeditor() {
             Reset Template
           </button>
           <button
-            onClick={async () => await fetch("/api/sendEmail")}
+            onClick={() => {
+              fetch("/api/sendEmail")
+                .then((response) => {
+                  if (response.ok) {
+                    handleSendStateBanner(true);
+                  } else {
+                    handleSendStateBanner(false);
+                  }
+                })
+                .catch(() => {
+                  handleSendStateBanner(false);
+                });
+            }}
             className="secondary_button"
             style={{ marginBottom: "50px" }}
           >
