@@ -1,5 +1,6 @@
 import { HTMLeditor } from "../../../components/Emails/HTMLeditor";
 import { Layout } from "../../../components/Layout/Layout";
+import useSWR from "swr";
 
 export default function invitationEditor() {
   async function handleSavingEmailDraft(emailDraft) {
