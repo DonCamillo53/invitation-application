@@ -23,7 +23,7 @@ export default function EventWebsite({
         backgroundColor: "white",
       }}
     >
-      {attendingState !== true && (
+      {attendingState === false && (
         <div className="error_message_banner_top">You are not attending</div>
       )}
       {attendingState === true && (
