@@ -8,7 +8,7 @@
   width: 60px;
   box-shadow: 5px 0px 10px 1px rgba(0, 0, 0, 0.1);
   transition: 0.5s;
-  z-index: 100;
+  z-index: 1000;
   overflow: hidden;
   color: #808080;
   justify-content: space-between;
